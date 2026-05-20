@@ -8,22 +8,39 @@ public class Waffe {
     Enemy Enemys[];
     int Feinde;
     boolean FeindeBool[];
-    int MagazinGro1 = 10;
-    int kugeln1 = 10;
-    int schussGeschwindigkeit1= 30;
+    
+    
+   
     int MagazinGro2 = 6;
     int kugeln2 = 6;
     int schussGeschwindigkeit2= 20;
     int nachladeZeit2= 400;
     int schussZeit;
-    int nachladeZeit1= 200;
+    
     boolean zielt= false;
     int zielZeit= 50;
     int ZeitZumZielen;
     boolean nachladen = false;
     int waffe = 1;
     Hitbox[] HitBoxen;
+    //Stein
+    double ybewegung = 0;
+    double gravitation = -0.01;
+    GLKugel Stein;
+    boolean wirft = false;
+    GLVektor vektStein;
+    int nachladeZeit3= 600;
+    int schussGeschwindigkeit3= 100;
+    int kugeln3 = 10;
+    int gerauschRadius =100;
+    int MagazinGro3 = 10;
+
     //gewehr
+    int MagazinGro1 = 10;
+    int kugeln1 = 10;
+    int schussGeschwindigkeit1= 30;
+    int nachladeZeit1= 200;
+
     GLObjekt Waffe1Teile[] = new GLObjekt[10];
     GLZylinder schaft;
     GLZylinder Lauf;
@@ -57,6 +74,10 @@ public class Waffe {
         FeindeBool = FeindeBool2;
         Feinde = Feinde2;
         Enemys = Enemys2;
+        // stein
+        Stein = new GLKugel(3, 8, 493.5, 0.5);
+        Stein.setzeSichtbarkeit(false);
+
         //gewehr
         schalldaempfer = new GLZylinder(3, 8, 487, 0.2,2);
         schaft = new GLZylinder(3, 8, 492, 0.2, 4);
@@ -118,6 +139,7 @@ public class Waffe {
     }
     public void Shoot(int x,int y, int z,GLVektor vektor)
     {
+        vektor.skaliereAuf(ProjektilGeschindigkeit);
         if (waffe ==1){
         for (int i=0; i<Projektil;i++)
         {   
@@ -130,7 +152,7 @@ public class Waffe {
                 ProjektileObj[i] = new GLKugel(schalldaempfer.gibX(),schalldaempfer.gibY(),schalldaempfer.gibZ(), 0.2);
                 ProjektileObj[i].setzeFarbe(1,1,0);
                 ProjektileObj[i].setzeSelbstleuchten(1, 1, 0);
-                vektor.skaliereAuf(ProjektilGeschindigkeit);
+                
                 ProjektileVekt[i] = vektor;
                 i = 20; 
                 kugeln1--;
@@ -152,7 +174,7 @@ public class Waffe {
                 ProjektileObj[i] = new GLKugel(schalldaempfer.gibX(),schalldaempfer.gibY(),schalldaempfer.gibZ(), 0.2);
                 ProjektileObj[i].setzeFarbe(1,1,0);
                 ProjektileObj[i].setzeSelbstleuchten(1, 1, 0);
-                vektor.skaliereAuf(ProjektilGeschindigkeit);
+                
                 ProjektileVekt[i] = vektor;
                 i = 20; 
                 kugeln2--;
@@ -162,6 +184,19 @@ public class Waffe {
                 //System.out.println("created");
             }
         }}
+        if (waffe ==3){
+            if (!wirft&&kugeln3<1){schussZeit= nachladeZeit3; kugeln3 = MagazinGro3;}
+            if ( Stein != null&& schussZeit<0&& kugeln3>0&& !wirft) // wenn null also frei, dann neues Objekt einfügen
+            { 
+                ybewegung = 0.5;
+                vektor.skaliereAuf(1);
+                vektStein = vektor;
+                wirft =true;
+                kugeln3--;
+                
+            }
+
+        }
         
     }
     public void zielen(){
@@ -173,7 +208,8 @@ public class Waffe {
             if (waffe ==1){
             GLVektor zurück =new GLVektor(-Zielbewegung1.x, -Zielbewegung1.y, -Zielbewegung1.z) ;
             bewege(zurück);
-           }else{
+           }
+           if (waffe ==2){
             GLVektor zurück =new GLVektor(-Zielbewegung2.x, -Zielbewegung2.y, -Zielbewegung2.z) ;
             bewege(zurück);
            }
@@ -182,8 +218,8 @@ public class Waffe {
             zielt = true;
             if (waffe == 1){
             bewege(Zielbewegung1);}
-            else 
-                {bewege(Zielbewegung2);}
+            if (waffe == 2){
+            bewege(Zielbewegung2);}
             ZeitZumZielen = zielZeit;
         }
         }
@@ -199,30 +235,52 @@ public class Waffe {
      }
     public void Update()
     {
-        if (waffe ==1){PlayerUI.setMunition(kugeln1,MagazinGro1);
+        if (waffe ==1)
+            {
+            PlayerUI.setMunition(kugeln1,MagazinGro1);
            
             
-        for ( int i = 0;i <10;i++ ){
-            if(Waffe1Teile[i] == null) break;
-            Waffe1Teile[i].setzeSichtbarkeit(true);;
-        }
+            for ( int i = 0;i <10;i++ ){
+                if(Waffe1Teile[i] == null) break;
+                Waffe1Teile[i].setzeSichtbarkeit(true);;
+            }
       
-        for ( int i = 0;i <10;i++ ){
-            if(Waffe2Teile[i] == null) break;
-            Waffe2Teile[i].setzeSichtbarkeit(false);
+            for ( int i = 0;i <10;i++ ){
+                if(Waffe2Teile[i] == null) break;
+                Waffe2Teile[i].setzeSichtbarkeit(false);
+            }
+            Stein.setzeSichtbarkeit(false);
         }
 
-        } 
-        if (waffe ==2){PlayerUI.setMunition(kugeln2,MagazinGro2);
+        if (waffe ==2){
+        PlayerUI.setMunition(kugeln2,MagazinGro2);
+
            for ( int i = 0;i <10;i++ ){
-            if(Waffe1Teile[i] == null) break;
-            Waffe1Teile[i].setzeSichtbarkeit(false);;
-        }
+                if(Waffe1Teile[i] == null) break;
+                Waffe1Teile[i].setzeSichtbarkeit(false);;
+            }
       
-        for ( int i = 0;i <10;i++ ){
-            if(Waffe2Teile[i] == null) break;
-            Waffe2Teile[i].setzeSichtbarkeit(true);
+            for ( int i = 0;i <10;i++ ){
+                if(Waffe2Teile[i] == null) break;
+                Waffe2Teile[i].setzeSichtbarkeit(true);
+            }
+            Stein.setzeSichtbarkeit(false);
         }
+        if (waffe ==3)
+            {
+            PlayerUI.setMunition(kugeln3,MagazinGro3);
+           
+            
+            for ( int i = 0;i <10;i++ ){
+                if(Waffe1Teile[i] == null) break;
+                Waffe1Teile[i].setzeSichtbarkeit(false);;
+            }
+      
+            for ( int i = 0;i <10;i++ ){
+                if(Waffe2Teile[i] == null) break;
+                Waffe2Teile[i].setzeSichtbarkeit(false);
+            }
+            Stein.setzeSichtbarkeit(true);
         }
         
     
@@ -263,7 +321,7 @@ public class Waffe {
        for (int i=0; i< Projektil ;i++)
         {
             
-            if ( ProjektileObj[i] != null) // wenn true also besetzt
+            if ( ProjektileObj[i] != null) // wenn besetzt
             {
                 ProjektilZeit[i]--;
                 ProjektileObj[i].verschiebe(ProjektileVekt[i]);
@@ -291,9 +349,20 @@ public class Waffe {
                     ProjektilZeit[i] = 0;
                     ProjektileVekt[i] = null;
                 }
-//Ich mag Raphael ganz dolle
             }
         }
+        if (wirft){
+            Stein.verschiebe(vektStein);
+            ybewegung = ybewegung+ gravitation;
+            Stein.verschiebe(0,ybewegung,0);
+            if (Stein.gibY()<-1){
+                Stein.loesche();
+                wirft = false;
+                ybewegung= 0;
+                Stein = new GLKugel(schalldaempfer.gibPosition(), 0.5);
+            }
+        }
+
     }
 
     public void drehe(double x, double y, double z, GLVektor rotationPunkt)
@@ -307,6 +376,10 @@ public class Waffe {
         for ( int i = 0;i <10;i++ ){
             if(Waffe2Teile[i] == null) break;
             Waffe2Teile[i].drehe(x, y, z, rotationPunkt);
+        }
+
+        if (!wirft){
+            Stein.drehe(x, y, z, rotationPunkt);
         }
         
         
@@ -333,16 +406,16 @@ public class Waffe {
             Waffe2Teile[i].setzePosition( vekt);
             
         }
+
+        if (!wirft){
+             GLVektor vekt = Stein.gibPosition();
+            vekt.addiere(richtung);
+            Stein.setzePosition( vekt);
+        }
+
         
     }
-    public void nachladen(){
-
-
-    if (schussZeit>150)
-        {
-        
-    }
-}
+    
 
 public void wechsel(int num){
    

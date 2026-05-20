@@ -2,6 +2,7 @@ import GLOOP.*;
 import java.awt.*;
 public class Camera {
     DllBridge DllTwoMouse;
+    boolean crosshairbool = true;
     GLWuerfel crosshair;
     GLKamera KameraMain;
     GLKamera Kamera_Sicht;
@@ -41,10 +42,12 @@ public class Camera {
         System.out.println(d.height);
         System.out.println(d.width);
 
-        
-        crosshair = new GLWuerfel(0, 10, 498, 0.01);
-        crosshair.setzeSelbstleuchten(1, 0,0);
-        crosshair.setzeFarbe(1,0,0);
+        if (crosshairbool)
+        {
+            crosshair = new GLWuerfel(0, 10, 498, 0.01);
+            crosshair.setzeSelbstleuchten(1, 0,0);
+            crosshair.setzeFarbe(1,0,0);
+        }
         
 
 
@@ -129,15 +132,20 @@ public class Camera {
                 Kamera_Sicht.schwenkeHorizontal(kameabewegung);
                 My2 = My;
                 Mx2 = Mx;
-            
-                crosshair.drehe(0, -kameabewegung, 0, KameraMain.gibX(), KameraMain.gibY(), KameraMain.gibZ());
+                if (crosshairbool)
+                {
+                    crosshair.drehe(0, -kameabewegung, 0, KameraMain.gibX(), KameraMain.gibY(), KameraMain.gibZ());
+                }
                 Waffe1.drehe(0, -kameabewegung, 0, KameraMain.gibPosition());
                 UIspieler.drehe(0,-kameabewegung, 0, KameraMain.gibPosition());
             }
         }else{
             kameabewegung = DllTwoMouse.getX(Playernumber) * empfindlichkeit;
             KameraMain.schwenkeHorizontal(kameabewegung);
-            crosshair.drehe(0, -kameabewegung, 0, KameraMain.gibX(), KameraMain.gibY(), KameraMain.gibZ());
+            if (crosshairbool)
+            {
+                crosshair.drehe(0, -kameabewegung, 0, KameraMain.gibX(), KameraMain.gibY(), KameraMain.gibZ());
+            }
             Waffe1   .drehe(0, -kameabewegung, 0, KameraMain.gibPosition());
             UIspieler.drehe(0,-kameabewegung, 0, KameraMain.gibPosition());
         }
@@ -229,14 +237,19 @@ public class Camera {
         GLVektor KameraSichtV = Kamera_Sicht.gibPosition();
         GLVektor BlickSichtV = Kamera_Sicht.gibBlickpunkt();  
         GLVektor BlickV = KameraMain.gibBlickpunkt();
-        GLVektor crosshairV = crosshair.gibPosition();
+
+        if (crosshairbool)
+        {
+            GLVektor crosshairV = crosshair.gibPosition();
+            crosshairV.addiere(richtung);
+            crosshair.setzePosition(crosshairV);
+        }
       
         BlickV.addiere(richtung);
         
         KameraSichtV.addiere(richtung);
         BlickSichtV.addiere(richtung);
-        crosshairV.addiere(richtung);
-
+       
         
         
 
@@ -245,7 +258,7 @@ public class Camera {
 
         KameraMain.setzePosition(KameraV);
         Kamera_Sicht.setzePosition(KameraSichtV);
-        crosshair.setzePosition(crosshairV);
+        
         
         Waffe1.bewege(richtung);
         UIspieler.bewege(richtung);

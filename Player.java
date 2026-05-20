@@ -13,6 +13,8 @@ public class Player {
     Hitbox HitBox;
     boolean Lebt = true;
     Hitbox[] HitBoxen;
+    int Bodenhöhe= 0;
+
     public Player(int heightMap2[][], int num)
     {
         
@@ -63,16 +65,17 @@ public class Player {
         if(Tastatur.esc()){
             end();
         }
+
         PlayerBody.setzePosition(gibX(), 0,gibZ());
 
         if (Playernumber == 1||Playernumber == 0) {
             
-            if (Tastatur.istGedrueckt(' ')) {
+            /*if (Tastatur.istGedrueckt(' ')) {
             
                 GLVektor Richtung = new GLVektor(0,1,0);
                 Richtung.skaliereAuf(Geschwindigkeit);
                 Camera.moveCameraRel(Richtung);
-            }
+            }*/
             if (Tastatur.istGedrueckt('w')) {
             
                 GLVektor Richtung = KameraMain.gibBlickrichtung();
@@ -104,6 +107,10 @@ public class Player {
             if (Tastatur.istGedrueckt('2')) {
             
                 Waffe.wechsel(2);
+            }
+            if (Tastatur.istGedrueckt('3')) {
+            
+                Waffe.wechsel(3);
             }
             if (Camera.RPressed())
                 {Waffe.zielen();}
