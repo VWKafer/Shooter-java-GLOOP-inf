@@ -5,6 +5,7 @@ public class Enemy {
     GLVektor ProjektileVekt[] = new GLVektor[Projektil];
     int ProjektilZeit[] = new int[Projektil];
     int ProjektilGeschindigkeit = -20;
+    int SpielerSchaden = -5;
     GLZylinder sicht;
     int sichtWeiteVorne = 200;
     int sichtWeiteoffset = 40;
@@ -73,6 +74,7 @@ public class Enemy {
             Rayteile[i] = new GLKugel( pos , 1);
         }
     }
+
     public void Update()
     {
         siehtSpieler = false;
@@ -85,9 +87,8 @@ public class Enemy {
         moveProjektils();
         nachSpielerSchauen();
         HitBox.setzePosition(Body.gibPosition());
-
-        
     }
+
     public void raycast(){
         SpielerRichtung = new GLVektor(Body.gibX(),Body.gibY(),Body.gibZ(),    Player.gibX(),Player.gibY(),Player.gibZ());
         SpielerRichtung.skaliereAuf(-4);
@@ -150,9 +151,9 @@ public class Enemy {
 
     }
 
-    public void schaden(){
-        health--;
-    }
+    public void schaden()
+    {health--;}
+
     public int  Tot()
     {
         
@@ -173,19 +174,17 @@ public class Enemy {
        
         return 0;
     }
+
     public int ranNummer(int min, int max)
     {
        int x = (int)(min+(Math.random()*(max-min)));
        return x;
     }
+
     public double  gibX()
-    {
-        return Body.gibX();
-    }
+        {return Body.gibX();}
     public double  gibZ()
-    {
-        return Body.gibZ();
-    }
+        {return Body.gibZ();}
     public void geheNach(int x, int z)
     {
        if (health>1) {
@@ -262,9 +261,9 @@ public class Enemy {
                 ProjektilZeit[i]--;
                 ProjektileObj[i].verschiebe(ProjektileVekt[i]);
                 //System.out.println("Move");
-                if (Math.abs(ProjektileObj[i].gibX())<10){
+                if (Math.abs(ProjektileObj[i].gibX()-Player.gibX())<10&&Math.abs(ProjektileObj[i].gibZ()-Player.gibZ())<10){
                     ProjektilZeit[i]= 0;
-                    Player.schaden(-5);
+                    Player.schaden(SpielerSchaden);
                 }
                 if ( ProjektilZeit[i]<=0) 
                     {
