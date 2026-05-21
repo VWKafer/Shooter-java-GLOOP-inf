@@ -188,8 +188,8 @@ public class Waffe {
             if (!wirft&&kugeln3<1){schussZeit= nachladeZeit3; kugeln3 = MagazinGro3;}
             if ( Stein != null&& schussZeit<0&& kugeln3>0&& !wirft) // wenn null also frei, dann neues Objekt einfügen
             { 
-                ybewegung = 0.5;
-                vektor.skaliereAuf(1);
+                ybewegung = 0.8;
+                vektor.skaliereAuf(2);
                 vektStein = vektor;
                 wirft =true;
                 kugeln3--;
@@ -356,6 +356,14 @@ public class Waffe {
             ybewegung = ybewegung+ gravitation;
             Stein.verschiebe(0,ybewegung,0);
             if (Stein.gibY()<-1){
+                int x= (int)Stein.gibX();
+                int z= (int)Stein.gibZ();
+                for(int i= 0;i<Feinde;i++){
+                    if (Math.abs(x-Enemys[i].gibX())<200&&Math.abs(z-Enemys[i].gibZ())<200){
+                        Enemys[i].ZielX = x;
+                        Enemys[i].ZielZ = z;
+                    }
+                }
                 Stein.loesche();
                 wirft = false;
                 ybewegung= 0;

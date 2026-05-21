@@ -60,7 +60,7 @@ public class Main {
         {//// Single player
             Player0= new Player(heightMap,0);
             
-            int Feinde =1;
+            int Feinde =3;
             boolean FeindeBool[] = new boolean[Feinde];
             Enemy Enemys[] = new Enemy[Feinde];
             for (int i=0 ; i<Feinde; i++){
