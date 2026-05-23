@@ -10,7 +10,7 @@ public class UI {
     int Magazingrosse= 10;
     int MaxHealth = 101;  
     double prevHealth= 101;
-   
+    Waffe Waffe;
    
 
     public UI(GLKamera Kamera2){
@@ -319,4 +319,9 @@ public class UI {
             UIElemente[start+6 ].setzeSichtbarkeit( true);
         } /**/
 }
+
+
+
+
+
 }

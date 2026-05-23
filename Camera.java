@@ -26,6 +26,8 @@ public class Camera {
     UI UIspieler;
     Hitbox[] HitBoxen;
 
+    GLQuader steinFallOrt;
+
     public Camera(GLKamera Kamera_Sicht2,GLKamera KameraMain2,int num)
     {
         Kamera_Sicht= Kamera_Sicht2;
@@ -42,6 +44,9 @@ public class Camera {
         System.out.println(d.height);
         System.out.println(d.width);
 
+        steinFallOrt = new GLQuader(3, 0, 150, 4, 0.5, 4);
+        steinFallOrt.setzeSelbstleuchten(1, 0,0);
+        steinFallOrt.setzeFarbe(1,0,0);
         if (crosshairbool)
         {
             crosshair = new GLWuerfel(0, 10, 498, 0.01);
@@ -76,7 +81,7 @@ public class Camera {
         
     }
 
-     public void ubergeben( Hitbox[] HitBoxen2){
+    public void ubergeben( Hitbox[] HitBoxen2){
       
         HitBoxen = HitBoxen2;
     }
@@ -91,7 +96,11 @@ public class Camera {
         schwenken();
         UIspieler.changeHealth(0);
         UIspieler.Update();
-       
+       if (Waffe1.WaffeNummer()==3){
+        steinFallOrt.setzeSichtbarkeit(true);
+       }else {
+        steinFallOrt.setzeSichtbarkeit(false);
+       }
        
     }
 
@@ -136,6 +145,7 @@ public class Camera {
                 {
                     crosshair.drehe(0, -kameabewegung, 0, KameraMain.gibX(), KameraMain.gibY(), KameraMain.gibZ());
                 }
+                steinFallOrt.drehe(0, -kameabewegung, 0, KameraMain.gibX(), KameraMain.gibY(), KameraMain.gibZ());
                 Waffe1.drehe(0, -kameabewegung, 0, KameraMain.gibPosition());
                 UIspieler.drehe(0,-kameabewegung, 0, KameraMain.gibPosition());
             }
@@ -146,6 +156,7 @@ public class Camera {
             {
                 crosshair.drehe(0, -kameabewegung, 0, KameraMain.gibX(), KameraMain.gibY(), KameraMain.gibZ());
             }
+            steinFallOrt.drehe(0, -kameabewegung, 0, KameraMain.gibPosition());
             Waffe1   .drehe(0, -kameabewegung, 0, KameraMain.gibPosition());
             UIspieler.drehe(0,-kameabewegung, 0, KameraMain.gibPosition());
         }
@@ -237,7 +248,7 @@ public class Camera {
         GLVektor KameraSichtV = Kamera_Sicht.gibPosition();
         GLVektor BlickSichtV = Kamera_Sicht.gibBlickpunkt();  
         GLVektor BlickV = KameraMain.gibBlickpunkt();
-
+        GLVektor Steinfall = steinFallOrt.gibPosition();
         if (crosshairbool)
         {
             GLVektor crosshairV = crosshair.gibPosition();
@@ -249,7 +260,7 @@ public class Camera {
         
         KameraSichtV.addiere(richtung);
         BlickSichtV.addiere(richtung);
-       
+        Steinfall.addiere(richtung);
         
         
 
@@ -258,7 +269,7 @@ public class Camera {
 
         KameraMain.setzePosition(KameraV);
         Kamera_Sicht.setzePosition(KameraSichtV);
-        
+        steinFallOrt.setzePosition(Steinfall);
         
         Waffe1.bewege(richtung);
         UIspieler.bewege(richtung);

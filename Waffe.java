@@ -228,10 +228,12 @@ public class Waffe {
     public void ubergeben(Player Player2 ,Camera Camera2, Hitbox[] HitBoxen2){
         Player = Player2;
         Camera =Camera2;
-        HitBoxen = HitBoxen2;
+        HitBoxen = HitBoxen2; 
+       
      }
     public void ubergeben(UI PlayerUI2){
         PlayerUI = PlayerUI2;
+       
      }
     public void Update()
     {
@@ -457,5 +459,7 @@ public void wechsel(int num){
     zielt = false;
     waffe= num;
 }
+public int WaffeNummer(){
+    return waffe;}
 }
 
