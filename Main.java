@@ -4,22 +4,13 @@ public class Main {
     
     public static void main(String args[])
     {System.out.println(System.getProperty("java.version"));
-    int heightMap[][]= {{10,10,10,10,10,10,10,10,10,10,10,10},
-                        {10,10,10,10,10,10,10,10,10,10,10,10},
-                        {10,10,10,10,10,10,10,10,10,10,10,10},
-                        {10,10,10,10,10,10,10,10,10,10,10,10},
-                        // {10,10,10,10,10,10,10,10,10,10,10,10},
-                        {10,10,10,10,10,10,10,10,10,10,10,10},
-                        {10,10,10,10,10,10,10,10,10,10,10,10},
-                        {10,10,10,10,10,10,10,10,10,10,10,10},
-                        {10,10,10,10,10,10,10,10,10,10,10,10},
-                        {10,10,10,10,10,10,10,10,10,10,10,10},
-                        {10,10,10,10,10,10,10,10,10,10,10,10},
-                        {10,10,10,10,10,10,10,10,10,10,10,10}};
+   
         
         Player Player1;
         Player Player2;
         Player Player0;
+        Integer Feinde = new Integer(3);
+        
         boolean multiplayer = false;
         GLTerrain  Boden1;
         Boden1 = new GLTerrain(0, 0,0, "map.png");
@@ -28,16 +19,19 @@ public class Main {
         
         if (multiplayer)
         {  ///////// 2Spieler
-            Player1 = new Player(heightMap,1);
-            Player2 = new Player(heightMap,2);
-            int Feinde =5;
+            Player1 = new Player(1);
+            Player2 = new Player(2);
+             Feinde.valueOf(5);
             boolean FeindeBool[] = new boolean[Feinde];
             Enemy Enemys[] = new Enemy[Feinde];
             for (int i=0 ; i<Feinde; i++){
                 FeindeBool[i] = true;
-                Enemys[i] = new Enemy(Feinde,Player1,false);
+                Enemys[i] = new Enemy(i,Feinde,Player1,false);
             }
-        
+            for (int i=0 ; i<Feinde; i++){
+               
+                Enemys[i].ubergeben(FeindeBool);
+            }
 
         
             Waffe Waffe1 = new Waffe(Enemys,Feinde,FeindeBool);
@@ -58,15 +52,21 @@ public class Main {
     
         }else
         {//// Single player
-            Player0= new Player(heightMap,0);
+            Player0= new Player(0);
             
-            int Feinde =3;
+            
+            Player0.ubergeben(Feinde);
             boolean FeindeBool[] = new boolean[Feinde];
             Enemy Enemys[] = new Enemy[Feinde];
             for (int i=0 ; i<Feinde; i++){
                 FeindeBool[i] = true;
-                Enemys[i] = new Enemy(Feinde,Player0, false);
+                Enemys[i] = new Enemy(i,Feinde,Player0, false);
             }
+            for (int i=0 ; i<Feinde; i++){
+               
+                Enemys[i].ubergeben(FeindeBool);
+            }
+
         Hitbox [] HitBoxen= new Hitbox[20];
             
             Haus Haus1 = new Haus(300, 0, 100, 100, 80, 500,90); 

@@ -1,3 +1,5 @@
+import java.beans.FeatureDescriptor;
+
 import GLOOP.*;
 public class Waffe {
     int Projektil = 20 ;
@@ -6,7 +8,7 @@ public class Waffe {
     GLVektor ProjektileVekt[] = new GLVektor[Projektil];
     int ProjektilGeschindigkeit = 15;
     Enemy Enemys[];
-    int Feinde;
+    Integer Feinde;
     boolean FeindeBool[];
     
     
@@ -69,7 +71,7 @@ public class Waffe {
     
     GLVektor Zielbewegung1;
     GLVektor Zielbewegung2;
-    public  Waffe(Enemy Enemys2[],int Feinde2,boolean FeindeBool2[])
+    public  Waffe(Enemy Enemys2[],Integer Feinde2,boolean FeindeBool2[])
     {
         FeindeBool = FeindeBool2;
         Feinde = Feinde2;
@@ -314,6 +316,16 @@ public class Waffe {
                             
                         }
                     }
+                }
+            }else{
+                if (Feinde> i+1&& Enemys[i+1]!= null){
+                if (FeindeBool[i+1] == true){
+                    Enemys[i]= Enemys[i+1];
+                    FeindeBool[i]= true;
+                    FeindeBool[i+1] = false;
+                    
+                    
+                }
                 }
             }
         }

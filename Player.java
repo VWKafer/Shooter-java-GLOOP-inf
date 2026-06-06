@@ -5,7 +5,7 @@ public class Player {
     double Geschwindigkeit = 1.0;
     GLKamera KameraMain;
     
-    int heightMap[][];
+  
     Waffe Waffe;
     int Playernumber;
     GLQuader PlayerBody;
@@ -14,12 +14,13 @@ public class Player {
     boolean Lebt = true;
     Hitbox[] HitBoxen;
     int Bodenhöhe= 0;
+    Integer Feinde;
 
-    public Player(int heightMap2[][], int num)
+    public Player( int num)
     {
         
-       Playernumber = num;
-        heightMap = heightMap2;
+        Playernumber = num;
+        
         int fensterH = 1080;
         int fensterB = 1920;
         if(Playernumber==0){
@@ -51,10 +52,13 @@ public class Player {
          
          Camera.ubergeben(Waffe);
     }
-      public void ubergeben(Hitbox[] HitBoxen2){
+    public void ubergeben(Hitbox[] HitBoxen2){
          HitBoxen = HitBoxen2;
          Waffe.ubergeben(this,Camera, HitBoxen);
          Camera.ubergeben(HitBoxen);
+    }
+    public void ubergeben( Integer Feinde2){
+        Feinde =Feinde2;
     }
 
     public void Update (){
@@ -62,7 +66,7 @@ public class Player {
         Camera.Update();
         HitBox.setzePosition(PlayerBody.gibPosition());
         
-        if(Tastatur.esc()){
+        if(Tastatur.esc()|| Feinde== 0){
             end();
         }
 

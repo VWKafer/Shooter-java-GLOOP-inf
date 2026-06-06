@@ -17,7 +17,7 @@ public class Enemy {
     GLQuader Head;
     GLKugel SpielerSichtAnzeige;
     GLKugel SpielerSichtAnzeigeRamen;
-    int FeindeAnzahl;
+    Integer FeindeAnzahl;
     int ZielX = 100;
     int ZielZ= 0;
     double Geschwindigkeit = 0.5;
@@ -27,6 +27,9 @@ public class Enemy {
 
     double SpielerSicht = 0.1;       // 0.0 -0.2 nichts    0.3-0.5 verdacht     0.6-0.9 angreifen     s
     double LetzteSpielersicht= 0.1;
+    boolean FeindeBool[];
+
+    int feindnummer;
     //double winkel=0;
 
  ///////////////////////  RAYCAST
@@ -40,7 +43,8 @@ public class Enemy {
 
  /////////////////
 
-    public Enemy(int FeindeAnzahl2,Player Player2,boolean stationaer2){
+    public Enemy(int nummer,Integer FeindeAnzahl2,Player Player2,boolean stationaer2){
+        feindnummer= nummer;
         stationaer = stationaer2;
         if( stationaer){ Geschwindigkeit = 0.0;}
         Player = Player2;
@@ -137,7 +141,7 @@ public class Enemy {
                     if (HitBoxen[0].beruehrt(pos))
                     {
                         siehtSpieler = true;
-                        //System.out.println("beruhert");
+                       
                         return;
                     }
                 }
@@ -161,6 +165,12 @@ public class Enemy {
             Body.loesche();
             Head.loesche();
             sicht.loesche();
+            FeindeBool[feindnummer]= false;
+            System.out.println(FeindeAnzahl);
+
+            FeindeAnzahl= new Integer(FeindeAnzahl-1);
+
+            System.out.println(FeindeAnzahl);
             for (int i=0; i<Projektil;i++)
             {
                 if(ProjektileObj[i] != null){
@@ -346,7 +356,10 @@ public class Enemy {
                    Geschwindigkeit = Geschwindigkeit2;
                 }
             }
-        }
-        
+    }
+
+    public void ubergeben( boolean FeindeBool2[]){
+     FeindeBool =  FeindeBool2;
+    }
 
 }
