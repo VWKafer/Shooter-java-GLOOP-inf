@@ -17,7 +17,7 @@ public class Enemy {
     GLQuader Head;
     GLKugel SpielerSichtAnzeige;
     GLKugel SpielerSichtAnzeigeRamen;
-    Integer FeindeAnzahl;
+    
     int ZielX = 100;
     int ZielZ= 0;
     double Geschwindigkeit = 0.5;
@@ -42,13 +42,13 @@ public class Enemy {
     Hitbox HitBoxen[];
 
  /////////////////
-
-    public Enemy(int nummer,Integer FeindeAnzahl2,Player Player2,boolean stationaer2){
+    Global_Variables Global;
+    public Enemy(int nummer,Global_Variables Global2,Player Player2,boolean stationaer2){
         feindnummer= nummer;
         stationaer = stationaer2;
         if( stationaer){ Geschwindigkeit = 0.0;}
         Player = Player2;
-        FeindeAnzahl = FeindeAnzahl2;
+        Global = Global2;
         Body = new GLQuader( ranNummer(-500,500) , 0,ranNummer(-500, 500),5, 25, 5);
         Body.setzeFarbe(1,0,0);
 
@@ -166,11 +166,11 @@ public class Enemy {
             Head.loesche();
             sicht.loesche();
             FeindeBool[feindnummer]= false;
-            System.out.println(FeindeAnzahl);
+            System.out.println(Global.getFeinde());
 
-            FeindeAnzahl= new Integer(FeindeAnzahl-1);
+           
 
-            System.out.println(FeindeAnzahl);
+            System.out.println(Global.getFeinde());
             for (int i=0; i<Projektil;i++)
             {
                 if(ProjektileObj[i] != null){

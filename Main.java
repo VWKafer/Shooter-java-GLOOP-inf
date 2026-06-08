@@ -5,11 +5,13 @@ public class Main {
     public static void main(String args[])
     {System.out.println(System.getProperty("java.version"));
    
-        
+        Global_Variables  Global;
+        Global = new Global_Variables();
+
         Player Player1;
         Player Player2;
         Player Player0;
-        Integer Feinde = new Integer(3);
+       
         
         boolean multiplayer = false;
         GLTerrain  Boden1;
@@ -18,26 +20,26 @@ public class Main {
         Boden1.setzePosition(0,-1960,0);
         
         if (multiplayer)
-        {  ///////// 2Spieler
+        {  ///////// 2Spielerd
             Player1 = new Player(1);
             Player2 = new Player(2);
-             Feinde.valueOf(5);
-            boolean FeindeBool[] = new boolean[Feinde];
-            Enemy Enemys[] = new Enemy[Feinde];
-            for (int i=0 ; i<Feinde; i++){
+             Global.setVariable(5);
+            boolean FeindeBool[] = new boolean[Global.getFeinde()];
+            Enemy Enemys[] = new Enemy[Global.getFeinde()];
+            for (int i=0 ; i<Global.getFeinde(); i++){
                 FeindeBool[i] = true;
-                Enemys[i] = new Enemy(i,Feinde,Player1,false);
+                Enemys[i] = new Enemy(i,Global,Player1,false);
             }
-            for (int i=0 ; i<Feinde; i++){
+            for (int i=0 ; i<Global.getFeinde(); i++){
                
                 Enemys[i].ubergeben(FeindeBool);
             }
 
         
-            Waffe Waffe1 = new Waffe(Enemys,Feinde,FeindeBool);
+            Waffe Waffe1 = new Waffe(Enemys,Global,FeindeBool);
             Player1.ubergeben(Waffe1);
 
-            Waffe Waffe2 = new Waffe(Enemys,Feinde,FeindeBool);
+            Waffe Waffe2 = new Waffe(Enemys,Global,FeindeBool);
             Player2.ubergeben(Waffe2);
 
             boolean running = true;
@@ -53,18 +55,20 @@ public class Main {
         }else
         {//// Single player
             Player0= new Player(0);
+            Global.setVariable(4);
             
-            
-            Player0.ubergeben(Feinde);
-            boolean FeindeBool[] = new boolean[Feinde];
-            Enemy Enemys[] = new Enemy[Feinde];
-            for (int i=0 ; i<Feinde; i++){
+            Player0.ubergeben(Global);
+            boolean FeindeBool[] = new boolean[Global.getFeinde()];
+            Enemy Enemys[] = new Enemy[Global.getFeinde()];
+            for (int i=0 ; i<Global.getFeinde(); i++){
                 FeindeBool[i] = true;
-                Enemys[i] = new Enemy(i,Feinde,Player0, false);
+                Enemys[i] = new Enemy(i,Global,Player0, false);
             }
-            for (int i=0 ; i<Feinde; i++){
+            for (int i=0 ; i<Global.getFeinde(); i++){
                
                 Enemys[i].ubergeben(FeindeBool);
+                System.out.println(i);
+   
             }
 
         Hitbox [] HitBoxen= new Hitbox[20];
@@ -97,13 +101,13 @@ public class Main {
            
 
         
-            Waffe Waffe1 = new Waffe(Enemys,Feinde,FeindeBool);
+            Waffe Waffe1 = new Waffe(Enemys,Global,FeindeBool);
             Player0.ubergeben(Waffe1);
             Player0.ubergeben(HitBoxen);
 
             //HitBoxen[0]= Player0.gibHitBox();
 
-            for (int i=0 ; i<Feinde; i++){
+            for (int i=0 ; i<Global.getFeinde(); i++){
                
                 Enemys[i].ubergeben(HitBoxen);
             }

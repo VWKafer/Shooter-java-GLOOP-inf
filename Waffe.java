@@ -8,7 +8,7 @@ public class Waffe {
     GLVektor ProjektileVekt[] = new GLVektor[Projektil];
     int ProjektilGeschindigkeit = 15;
     Enemy Enemys[];
-    Integer Feinde;
+    
     boolean FeindeBool[];
     
     
@@ -71,10 +71,12 @@ public class Waffe {
     
     GLVektor Zielbewegung1;
     GLVektor Zielbewegung2;
-    public  Waffe(Enemy Enemys2[],Integer Feinde2,boolean FeindeBool2[])
+
+    Global_Variables Global;
+    public  Waffe(Enemy Enemys2[],Global_Variables Global2,boolean FeindeBool2[])
     {
         FeindeBool = FeindeBool2;
-        Feinde = Feinde2;
+        Global =Global2;
         Enemys = Enemys2;
         // stein
         Stein = new GLKugel(3, 8, 493.5, 0.5);
@@ -291,7 +293,7 @@ public class Waffe {
         moveProjektils();
         schussZeit--;
         ZeitZumZielen--;
-        for (int i=0;i< Feinde; i++){
+        for (int i=0;i< Global.getFeinde(); i++){
             if (FeindeBool[i]== true){
                 ////////// Enemy update
                 Enemys[i].Update();
@@ -308,17 +310,20 @@ public class Waffe {
                             //System.out.println("Schaden an" + i + "mit Abstand: " + dx + " und " + dy);
 
                             if (Enemys[i].Tot()== 1) 
-                             {FeindeBool[i]= false;}
+                             {FeindeBool[i]= false;
+                                Global.addLateUpdate(-1);
+                             }
                             
                             ProjektileObj[n].loesche();
                             n = Projektil+10000;
-                            i = Feinde +10000;
+                            i = Global.getFeinde() +10000;
+                            
                             
                         }
                     }
                 }
             }else{
-                if (Feinde> i+1&& Enemys[i+1]!= null){
+                if (Global.getFeinde()> i+1&& Enemys[i+1]!= null){
                 if (FeindeBool[i+1] == true){
                     Enemys[i]= Enemys[i+1];
                     FeindeBool[i]= true;
@@ -326,9 +331,11 @@ public class Waffe {
                     
                     
                 }
+                
                 }
             }
         }
+        Global.lateUpdate();
     } 
     public void moveProjektils()
     {
@@ -372,7 +379,7 @@ public class Waffe {
             if (Stein.gibY()<-1){
                 int x= (int)Stein.gibX();
                 int z= (int)Stein.gibZ();
-                for(int i= 0;i<Feinde;i++){
+                for(int i= 0;i<Global.getFeinde();i++){
                     if (Math.abs(x-Enemys[i].gibX())<200&&Math.abs(z-Enemys[i].gibZ())<200){
                         Enemys[i].ZielX = x;
                         Enemys[i].ZielZ = z;

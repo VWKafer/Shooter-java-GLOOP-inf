@@ -14,7 +14,7 @@ public class Player {
     boolean Lebt = true;
     Hitbox[] HitBoxen;
     int Bodenhöhe= 0;
-    Integer Feinde;
+   Global_Variables Global;
 
     public Player( int num)
     {
@@ -57,8 +57,8 @@ public class Player {
          Waffe.ubergeben(this,Camera, HitBoxen);
          Camera.ubergeben(HitBoxen);
     }
-    public void ubergeben( Integer Feinde2){
-        Feinde =Feinde2;
+    public void ubergeben( Global_Variables Global2){
+        Global = Global2;
     }
 
     public void Update (){
@@ -66,7 +66,7 @@ public class Player {
         Camera.Update();
         HitBox.setzePosition(PlayerBody.gibPosition());
         
-        if(Tastatur.esc()|| Feinde== 0){
+        if(Tastatur.esc()|| Global.getFeinde() ==0){
             end();
         }
 
