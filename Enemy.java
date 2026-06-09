@@ -29,6 +29,11 @@ public class Enemy {
     double LetzteSpielersicht= 0.1;
     boolean FeindeBool[];
 
+    int maxx = 500;
+    int minx = -500;
+    int maxz = 500;
+    int minz = -500;
+
     int feindnummer;
     //double winkel=0;
 
@@ -42,6 +47,8 @@ public class Enemy {
     Hitbox HitBoxen[];
 
  /////////////////
+ 
+    int Feinde;
     Global_Variables Global;
     public Enemy(int nummer,Global_Variables Global2,Player Player2,boolean stationaer2){
         feindnummer= nummer;
@@ -49,6 +56,7 @@ public class Enemy {
         if( stationaer){ Geschwindigkeit = 0.0;}
         Player = Player2;
         Global = Global2;
+        Feinde = Global.getFeinde();
         Body = new GLQuader( ranNummer(-500,500) , 0,ranNummer(-500, 500),5, 25, 5);
         Body.setzeFarbe(1,0,0);
 
@@ -85,7 +93,7 @@ public class Enemy {
         raycast();
         shootZaehler--;
         rotiere();
-        geherand(-500, 500, -500, 500); 
+        geherand(minx, maxx, minz, maxz); 
       
         Shoot();
         moveProjektils();
@@ -166,11 +174,11 @@ public class Enemy {
             Head.loesche();
             sicht.loesche();
             FeindeBool[feindnummer]= false;
-            System.out.println(Global.getFeinde());
+            
 
            
 
-            System.out.println(Global.getFeinde());
+            
             for (int i=0; i<Projektil;i++)
             {
                 if(ProjektileObj[i] != null){
@@ -202,6 +210,12 @@ public class Enemy {
         zAlt = Body.gibZ();
 
             GLVektor Richtung =  new GLVektor(x, 0, z, Body.gibX(), 0, Body.gibZ());
+            for (int i =0; HitBoxen[i]!= null;i++){
+                if (HitBoxen[i].beruehrt(Body.gibPosition())){
+                    ZielX = randNum( minx,maxx);
+                    ZielZ = randNum( minz,maxz);
+                }
+            }
             Richtung.skaliereAuf(Geschwindigkeit);
             Body.verschiebe(Richtung);
             Head.verschiebe(Richtung);

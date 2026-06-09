@@ -15,7 +15,7 @@ public class Player {
     Hitbox[] HitBoxen;
     int Bodenhöhe= 0;
    Global_Variables Global;
-
+    int Feinde;
     public Player( int num)
     {
         
@@ -59,6 +59,7 @@ public class Player {
     }
     public void ubergeben( Global_Variables Global2){
         Global = Global2;
+        Feinde = Global.getFeinde();
     }
 
     public void Update (){

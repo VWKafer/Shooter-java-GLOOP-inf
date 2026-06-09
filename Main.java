@@ -12,7 +12,7 @@ public class Main {
         Player Player2;
         Player Player0;
        
-        
+        int Feinde;
         boolean multiplayer = false;
         GLTerrain  Boden1;
         Boden1 = new GLTerrain(0, 0,0, "map.png");
@@ -24,13 +24,14 @@ public class Main {
             Player1 = new Player(1);
             Player2 = new Player(2);
              Global.setVariable(5);
-            boolean FeindeBool[] = new boolean[Global.getFeinde()];
-            Enemy Enemys[] = new Enemy[Global.getFeinde()];
-            for (int i=0 ; i<Global.getFeinde(); i++){
+             Feinde = 5;
+            boolean FeindeBool[] = new boolean[Feinde];
+            Enemy Enemys[] = new Enemy[Feinde];
+            for (int i=0 ; i<Feinde; i++){
                 FeindeBool[i] = true;
                 Enemys[i] = new Enemy(i,Global,Player1,false);
             }
-            for (int i=0 ; i<Global.getFeinde(); i++){
+            for (int i=0 ; i<Feinde; i++){
                
                 Enemys[i].ubergeben(FeindeBool);
             }
@@ -55,16 +56,17 @@ public class Main {
         }else
         {//// Single player
             Player0= new Player(0);
-            Global.setVariable(4);
             
+            Feinde = 4;
+            Global.setVariable(Feinde);
             Player0.ubergeben(Global);
-            boolean FeindeBool[] = new boolean[Global.getFeinde()];
-            Enemy Enemys[] = new Enemy[Global.getFeinde()];
-            for (int i=0 ; i<Global.getFeinde(); i++){
+            boolean FeindeBool[] = new boolean[Feinde];
+            Enemy Enemys[] = new Enemy[Feinde];
+            for (int i=0 ; i<Feinde; i++){
                 FeindeBool[i] = true;
                 Enemys[i] = new Enemy(i,Global,Player0, false);
             }
-            for (int i=0 ; i<Global.getFeinde(); i++){
+            for (int i=0 ; i<Feinde; i++){
                
                 Enemys[i].ubergeben(FeindeBool);
                 System.out.println(i);
@@ -107,7 +109,7 @@ public class Main {
 
             //HitBoxen[0]= Player0.gibHitBox();
 
-            for (int i=0 ; i<Global.getFeinde(); i++){
+            for (int i=0 ; i<Feinde; i++){
                
                 Enemys[i].ubergeben(HitBoxen);
             }
