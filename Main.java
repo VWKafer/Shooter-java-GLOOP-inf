@@ -22,6 +22,7 @@ public class Main {
         Baum Baum1;
         Baum1 = new Baum(-350,0,200,1);
         
+        
         if (multiplayer)
         {  ///////// 2Spielerd
             Player1 = new Player(1);
@@ -60,7 +61,7 @@ public class Main {
         {//// Single player
             Player0= new Player(0);
             
-            Feinde = 4;
+            Feinde = 0;
             Global.setVariable(Feinde);
             Player0.ubergeben(Global,Feinde);
             boolean FeindeBool[] = new boolean[Feinde];
@@ -78,21 +79,44 @@ public class Main {
 
         Hitbox [] HitBoxen= new Hitbox[20];
             
-            //Haus Haus1 = new Haus(300, 0, 100, 100, 80, 500,90); 
+            Haus Haus1 = new Haus(300, 0, 100, 100, 80, 500,90); 
 
             Haus Haus2 = new Haus(0, 0, 300, 200, 100, 200,90);
 
             Haus Haus3 = new Haus(-350, 35, 100, 100, 80, 50,0);
 
-            //Haus Haus4 = new Haus(400, 0, -100, 100, 80, 100,0);
+            Haus Haus4 = new Haus(400, 0, -100, 100, 80, 100,0);
 
-            //Haus Haus5= new Haus(300, 0, 500, 100, 80, 500,90); 
+            Haus Haus5= new Haus(300, 0, 500, 100, 80, 500,90); 
 
             Haus Haus6 = new Haus(500, 0, 700, 200, 100, 200,0);
 
-            //Haus Haus7 = new Haus(300, 35, 300, 100, 80, 50,0);
+            Haus Haus7 = new Haus(300, 35, 300, 100, 80, 50,0);
 
             Haus Haus8 = new Haus(700, 0, 300, 150, 200, 150,0);
+
+           int[]koordinatenBaume = {-66,0,472,-383,0,197,-211,0,239,-280,0,203,-215,0,108,-68,0,
+105,-62,0,
+15,-217,0,
+13,-219,0,
+-85,-131,0,
+-88,-29,0,
+-89,96,0,
+-97,229,0,
+-87,340,0,
+-90,221,0,
+242,405,0,
+349,646,0,
+124,647,0,
+57,};
+            //           anzahl bäume *3
+            for (int i = 0;i<54; i= i+3){
+                Baum Baum;
+                Baum = new Baum(koordinatenBaume[i], koordinatenBaume[i+1], koordinatenBaume[i+2], 1);
+                System.out.println(koordinatenBaume[i]);
+                System.out.println(koordinatenBaume[i+1]);
+                System.out.println(koordinatenBaume[i+2]);
+            }
 
             HitBoxen[0]= Player0.gibHitBox();
             //HitBoxen[1]= Haus1.gibHitBox();

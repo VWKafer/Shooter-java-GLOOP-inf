@@ -15,8 +15,11 @@
     y= py;
     z= pz;
     size = psize;
-    Stamm = new GLZylinder(x,y+hohe/2,z,breite,hohe);
-    Krone = new GLKugel(x,y+hohe,z, psize);
+    Stamm = new GLZylinder(x,y+hohe/2-5,z,breite,hohe);
+    Stamm.drehe(90, 0, 0);
+    Stamm.setzeFarbe(0.5,0.3,0);
+    Krone = new GLKugel(x,y+hohe,z, psize*40);
+    Krone.setzeFarbe(0.2 ,0.8 ,0.2);
     HitBox = new Hitbox(Stamm.gibPosition(), breite, hohe, breite, true);
     
    }

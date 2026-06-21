@@ -67,7 +67,7 @@ public class Player {
         Camera.Update();
         HitBox.setzePosition(PlayerBody.gibPosition());
         
-        if(Tastatur.esc()|| Global.getFeinde() ==0){
+        if(Tastatur.esc()|| (Global.getFeinde() ==0 && Feinde!=0)){
             end();
         }
 
@@ -76,10 +76,13 @@ public class Player {
         if (Playernumber == 1||Playernumber == 0) {
             
             if (Tastatur.istGedrueckt(' ')) {
-            
-                GLVektor Richtung = new GLVektor(0,1,0);
-                Richtung.skaliereAuf(Geschwindigkeit);
-                Camera.moveCameraRel(Richtung);
+                System.out.println(((int) HitBox.x)+",0,");
+                System.out.println(((int) HitBox.z)+",");
+                Baum Baum;
+                Baum = new Baum((int) HitBox.x, 0, (int) HitBox.z, 1);
+                //GLVektor Richtung = new GLVektor(0,1,0);
+                //Richtung.skaliereAuf(Geschwindigkeit);
+                //Camera.moveCameraRel(Richtung);
             }
             if (Tastatur.istGedrueckt('w')) {
             
