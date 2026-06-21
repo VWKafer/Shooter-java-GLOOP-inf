@@ -1,4 +1,4 @@
-import java.beans.FeatureDescriptor;
+
 
 import GLOOP.*;
 public class Waffe {
@@ -74,11 +74,11 @@ public class Waffe {
 
     Global_Variables Global;
     int Feinde;
-    public  Waffe(Enemy Enemys2[],Global_Variables Global2,boolean FeindeBool2[])
+    public  Waffe(Enemy Enemys2[],Global_Variables Global2,int Feinde2,boolean FeindeBool2[])
     {
         FeindeBool = FeindeBool2;
         Global =Global2;
-        Feinde = Global.getFeinde();
+        Feinde = Feinde2;
         Enemys = Enemys2;
         // stein
         Stein = new GLKugel(3, 8, 493.5, 0.5);
@@ -324,7 +324,7 @@ public class Waffe {
                         }
                     }
                 }
-            }else{
+            }/*else{
                 if (Feinde> i+1&& Enemys[i+1]!= null){
                 if (FeindeBool[i+1] == true){
                     Enemys[i]= Enemys[i+1];
@@ -335,7 +335,7 @@ public class Waffe {
                 }
                 
                 }
-            }
+            }*/
         }
         
     } 

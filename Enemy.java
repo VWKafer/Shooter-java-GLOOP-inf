@@ -50,14 +50,39 @@ public class Enemy {
  
     int Feinde;
     Global_Variables Global;
-    public Enemy(int nummer,Global_Variables Global2,Player Player2,boolean stationaer2){
+    public Enemy(int nummer,Global_Variables Global2,int Feinde2,Player Player2,boolean stationaer2){
         feindnummer= nummer;
         stationaer = stationaer2;
         if( stationaer){ Geschwindigkeit = 0.0;}
         Player = Player2;
         Global = Global2;
-        Feinde = Global.getFeinde();
-        Body = new GLQuader( ranNummer(-500,500) , 0,ranNummer(-500, 500),5, 25, 5);
+        Feinde =Feinde2;
+        
+        
+    }
+
+    public void spawn(){
+        int x;
+        int z;
+        x = ranNummer(minx, maxx);
+        z = ranNummer(minz, maxz);
+        
+        
+        for (int b =0; HitBoxen[b]!= null; b++){
+                 
+            if (HitBoxen[b].beruehrt(x, 0,z)){
+                if (b!=feindnummer){
+                    x = ranNummer(minx, maxx);
+                    z = ranNummer(minz, maxz);
+                    b =0;
+
+                }
+            }
+        }
+
+
+
+        Body = new GLQuader( x, 0,z,5, 25, 5);
         Body.setzeFarbe(1,0,0);
 
         Head = new GLQuader(  Body.gibX()+2 , 10, Body.gibZ(),2, 2, 4);
@@ -84,8 +109,7 @@ public class Enemy {
                 pos.addiere(SpielerRichtung);
             }
             Rayteile[i] = new GLKugel( pos , 1);
-        }
-    }
+        }}
 
     public void Update()
     {
@@ -210,13 +234,17 @@ public class Enemy {
         zAlt = Body.gibZ();
 
             GLVektor Richtung =  new GLVektor(x, 0, z, Body.gibX(), 0, Body.gibZ());
+            Richtung.skaliereAuf(Geschwindigkeit);
+            GLVektor test = new GLVektor(Body.gibPosition());
+            test.addiere(Richtung);
             for (int i =0; HitBoxen[i]!= null;i++){
-                if (HitBoxen[i].beruehrt(Body.gibPosition())){
+                if (HitBoxen[i].beruehrt(test)){
                     ZielX = randNum( minx,maxx);
                     ZielZ = randNum( minz,maxz);
+                    return;
                 }
             }
-            Richtung.skaliereAuf(Geschwindigkeit);
+            
             Body.verschiebe(Richtung);
             Head.verschiebe(Richtung);
             sicht.verschiebe(Richtung); 
@@ -360,16 +388,8 @@ public class Enemy {
     }
 
     public void ubergeben(Hitbox pHitBoxen[]){
-         HitBoxen = pHitBoxen;
-         // fals in einem objekt spawneda
-         for (int i =0; HitBoxen[i]!= null;i++){
-                if (HitBoxen[i].beruehrt(Body.gibPosition())){
-                   double Geschwindigkeit2 = Geschwindigkeit;
-                   Geschwindigkeit = 500;
-                   geheNach(randNum( -500,500), randNum( -500,500));
-                   Geschwindigkeit = Geschwindigkeit2;
-                }
-            }
+        HitBoxen = pHitBoxen;
+        spawn();
     }
 
     public void ubergeben( boolean FeindeBool2[]){

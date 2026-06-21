@@ -16,8 +16,11 @@ public class Main {
         boolean multiplayer = false;
         GLTerrain  Boden1;
         Boden1 = new GLTerrain(0, 0,0, "map.png");
-        Boden1.setzeSkalierung(10);
-        Boden1.setzePosition(0,-1960,0);
+        Boden1.setzeSkalierung(10,3,10);
+        Boden1.setzePosition(0,-590,0);
+        Boden1.setzeTextur("mapTextur.png");
+        Baum Baum1;
+        Baum1 = new Baum(-350,0,200,1);
         
         if (multiplayer)
         {  ///////// 2Spielerd
@@ -29,7 +32,7 @@ public class Main {
             Enemy Enemys[] = new Enemy[Feinde];
             for (int i=0 ; i<Feinde; i++){
                 FeindeBool[i] = true;
-                Enemys[i] = new Enemy(i,Global,Player1,false);
+                Enemys[i] = new Enemy(i,Global,Feinde,Player1,false);
             }
             for (int i=0 ; i<Feinde; i++){
                
@@ -37,10 +40,10 @@ public class Main {
             }
 
         
-            Waffe Waffe1 = new Waffe(Enemys,Global,FeindeBool);
+            Waffe Waffe1 = new Waffe(Enemys,Global,Feinde,FeindeBool);
             Player1.ubergeben(Waffe1);
 
-            Waffe Waffe2 = new Waffe(Enemys,Global,FeindeBool);
+            Waffe Waffe2 = new Waffe(Enemys,Global,Feinde,FeindeBool);
             Player2.ubergeben(Waffe2);
 
             boolean running = true;
@@ -59,12 +62,12 @@ public class Main {
             
             Feinde = 4;
             Global.setVariable(Feinde);
-            Player0.ubergeben(Global);
+            Player0.ubergeben(Global,Feinde);
             boolean FeindeBool[] = new boolean[Feinde];
             Enemy Enemys[] = new Enemy[Feinde];
             for (int i=0 ; i<Feinde; i++){
                 FeindeBool[i] = true;
-                Enemys[i] = new Enemy(i,Global,Player0, false);
+                Enemys[i] = new Enemy(i,Global,Feinde,Player0, false);
             }
             for (int i=0 ; i<Feinde; i++){
                
@@ -75,35 +78,35 @@ public class Main {
 
         Hitbox [] HitBoxen= new Hitbox[20];
             
-            Haus Haus1 = new Haus(300, 0, 100, 100, 80, 500,90); 
+            //Haus Haus1 = new Haus(300, 0, 100, 100, 80, 500,90); 
 
             Haus Haus2 = new Haus(0, 0, 300, 200, 100, 200,90);
 
-            Haus Haus3 = new Haus(-300, 35, 100, 100, 80, 50,0);
+            Haus Haus3 = new Haus(-350, 35, 100, 100, 80, 50,0);
 
-            Haus Haus4 = new Haus(400, 0, -100, 100, 80, 100,0);
+            //Haus Haus4 = new Haus(400, 0, -100, 100, 80, 100,0);
 
-            Haus Haus5= new Haus(300, 0, 500, 100, 80, 500,90); 
+            //Haus Haus5= new Haus(300, 0, 500, 100, 80, 500,90); 
 
             Haus Haus6 = new Haus(500, 0, 700, 200, 100, 200,0);
 
-            Haus Haus7 = new Haus(300, 35, 300, 100, 80, 50,0);
+            //Haus Haus7 = new Haus(300, 35, 300, 100, 80, 50,0);
 
             Haus Haus8 = new Haus(700, 0, 300, 150, 200, 150,0);
 
             HitBoxen[0]= Player0.gibHitBox();
-            HitBoxen[1]= Haus1.gibHitBox();
-            HitBoxen[2]= Haus2.gibHitBox();
+            //HitBoxen[1]= Haus1.gibHitBox();
+            //HitBoxen[2]= Haus2.gibHitBox();
             HitBoxen[3]= Haus3.gibHitBox();
-            HitBoxen[4]= Haus4.gibHitBox();
-            HitBoxen[5]= Haus5.gibHitBox();
+            //HitBoxen[4]= Haus4.gibHitBox();
+           // HitBoxen[5]= Haus5.gibHitBox();
             HitBoxen[6]= Haus6.gibHitBox();
-            HitBoxen[7]= Haus7.gibHitBox();
+            //HitBoxen[7]= Haus7.gibHitBox();
             HitBoxen[8]= Haus8.gibHitBox();
            
 
         
-            Waffe Waffe1 = new Waffe(Enemys,Global,FeindeBool);
+            Waffe Waffe1 = new Waffe(Enemys,Global,Feinde,FeindeBool);
             Player0.ubergeben(Waffe1);
             Player0.ubergeben(HitBoxen);
 

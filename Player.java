@@ -57,9 +57,9 @@ public class Player {
          Waffe.ubergeben(this,Camera, HitBoxen);
          Camera.ubergeben(HitBoxen);
     }
-    public void ubergeben( Global_Variables Global2){
+    public void ubergeben( Global_Variables Global2,int Feinde2){
         Global = Global2;
-        Feinde = Global.getFeinde();
+        Feinde = Feinde2;
     }
 
     public void Update (){
@@ -75,12 +75,12 @@ public class Player {
 
         if (Playernumber == 1||Playernumber == 0) {
             
-            /*if (Tastatur.istGedrueckt(' ')) {
+            if (Tastatur.istGedrueckt(' ')) {
             
                 GLVektor Richtung = new GLVektor(0,1,0);
                 Richtung.skaliereAuf(Geschwindigkeit);
                 Camera.moveCameraRel(Richtung);
-            }*/
+            }
             if (Tastatur.istGedrueckt('w')) {
             
                 GLVektor Richtung = KameraMain.gibBlickrichtung();
