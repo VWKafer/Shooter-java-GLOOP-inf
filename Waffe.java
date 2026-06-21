@@ -351,16 +351,18 @@ public class Waffe {
                 //System.out.println("Move");
                
                     //System.out.println("Move1");
-                for (int b =0; HitBoxen[b]!= null; b++){
-                    //System.out.println("Move2");
-                    if (HitBoxen[b].beruehrt(ProjektileObj[i].gibPosition())){
-                    System.out.println("Move3");
+                for (int b =0; b<90; b++){
+                    if (HitBoxen[b]!= null){
+                        //System.out.println("Move2");
+                        if (HitBoxen[b].beruehrt(ProjektileObj[i].gibPosition())){
+                            System.out.println("Move3");
                    
-                    ProjektilZeit[i] = 5;
+                            ProjektilZeit[i] = 5;
                 
-                   GLVektor vekt = ProjektileVekt[i];
-                   vekt.multipliziere(-1);
-                    ProjektileVekt[i]= vekt;
+                            GLVektor vekt = ProjektileVekt[i];
+                            vekt.multipliziere(-1);
+                            ProjektileVekt[i]= vekt;
+                        }
                     }
                 }
             

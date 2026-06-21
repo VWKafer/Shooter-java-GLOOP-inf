@@ -77,7 +77,7 @@ public class Main {
    
             }
 
-        Hitbox [] HitBoxen= new Hitbox[20];
+        Hitbox [] HitBoxen= new Hitbox[90];
             
             Haus Haus1 = new Haus(300, 0, 100, 100, 80, 500,90); 
 
@@ -95,40 +95,47 @@ public class Main {
 
             Haus Haus8 = new Haus(700, 0, 300, 150, 200, 150,0);
 
-           int[]koordinatenBaume = {-66,0,472,-383,0,197,-211,0,239,-280,0,203,-215,0,108,-68,0,
-105,-62,0,
-15,-217,0,
-13,-219,0,
--85,-131,0,
--88,-29,0,
--89,96,0,
--97,229,0,
--87,340,0,
--90,221,0,
-242,405,0,
-349,646,0,
-124,647,0,
-57,};
+           
+
+            HitBoxen[0]= Player0.gibHitBox();
+            HitBoxen[1]= Haus1.gibHitBox();
+            HitBoxen[2]= Haus2.gibHitBox();
+            HitBoxen[3]= Haus3.gibHitBox();
+            HitBoxen[4]= Haus4.gibHitBox();
+            HitBoxen[5]= Haus5.gibHitBox();
+            HitBoxen[6]= Haus6.gibHitBox();
+            HitBoxen[7]= Haus7.gibHitBox();
+            HitBoxen[8]= Haus8.gibHitBox();
+           
+int[]koordinatenBaume = {
+            -66,0,472,
+            -383,0,197,
+            -211,0,239,
+            -280,0,203,
+            -215,0,108,
+            -68,0,105,
+            -62,0,15,
+            -217,0,13,
+            -219,0,-85,
+            -131,0,-88,
+            -29,0,-89,
+            96,0,-97,
+            229,0,-87,
+            340,0,-90,
+            221,0,242,
+            405,0,349,
+            646,0,124,
+            647,0,57,};
+            
             //           anzahl bäume *3
             for (int i = 0;i<54; i= i+3){
                 Baum Baum;
                 Baum = new Baum(koordinatenBaume[i], koordinatenBaume[i+1], koordinatenBaume[i+2], 1);
-                System.out.println(koordinatenBaume[i]);
-                System.out.println(koordinatenBaume[i+1]);
-                System.out.println(koordinatenBaume[i+2]);
+                //System.out.println(koordinatenBaume[i]);
+                //System.out.println(koordinatenBaume[i+1]);
+                //System.out.println(koordinatenBaume[i+2]);
+                HitBoxen[i+9] = Baum.gibHitBox();
             }
-
-            HitBoxen[0]= Player0.gibHitBox();
-            //HitBoxen[1]= Haus1.gibHitBox();
-            //HitBoxen[2]= Haus2.gibHitBox();
-            HitBoxen[3]= Haus3.gibHitBox();
-            //HitBoxen[4]= Haus4.gibHitBox();
-           // HitBoxen[5]= Haus5.gibHitBox();
-            HitBoxen[6]= Haus6.gibHitBox();
-            //HitBoxen[7]= Haus7.gibHitBox();
-            HitBoxen[8]= Haus8.gibHitBox();
-           
-
         
             Waffe Waffe1 = new Waffe(Enemys,Global,Feinde,FeindeBool);
             Player0.ubergeben(Waffe1);
