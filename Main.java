@@ -19,8 +19,8 @@ public class Main {
         Boden1.setzeSkalierung(10,3,10);
         Boden1.setzePosition(0,-590,0);
         Boden1.setzeTextur("mapTextur.png");
-        Baum Baum1;
-        Baum1 = new Baum(-350,0,200,1);
+        lampe Baum1;
+        Baum1 = new lampe(-450,0,200,1,true);
         
         
         if (multiplayer)
@@ -135,6 +135,50 @@ int[]koordinatenBaume = {
                 //System.out.println(koordinatenBaume[i+1]);
                 //System.out.println(koordinatenBaume[i+2]);
                 HitBoxen[i+9] = Baum.gibHitBox();
+            }
+
+            int[]koordinatenlampenV = {
+            -289,0,126,
+            -87,0,107,
+            56,0,-64,
+            254,0,-60,
+            368,0,332,
+            241,0,326,
+            -111,0,403,
+
+            };
+            
+            //           anzahl lampen *3
+            for (int i = 0;i<21; i= i+3){
+                lampe lampe;
+                lampe = new lampe(koordinatenlampenV[i], koordinatenlampenV[i+1], koordinatenlampenV[i+2], 1,true);
+                //System.out.println(koordinatenBaume[i]);
+                //System.out.println(koordinatenBaume[i+1]);
+                //System.out.println(koordinatenBaume[i+2]);
+                HitBoxen[i+63] = lampe.gibHitBox();
+            }
+            int[]koordinatenlampenR = {
+                -68,0,6,
+                552,0,42,
+                356,0,268,
+                257,0,268,
+                551,0,441,
+                609,0,595,
+                42,0,455,
+
+
+
+
+
+
+            };
+            for (int i = 0;i<21; i= i+3){
+                lampe lampe;
+                lampe = new lampe(koordinatenlampenR[i], koordinatenlampenR[i+1], koordinatenlampenR[i+2], 1,false);
+                //System.out.println(koordinatenBaume[i]);
+                //System.out.println(koordinatenBaume[i+1]);
+                //System.out.println(koordinatenBaume[i+2]);
+                HitBoxen[i+63] = lampe.gibHitBox();
             }
         
             Waffe Waffe1 = new Waffe(Enemys,Global,Feinde,FeindeBool);

@@ -78,8 +78,8 @@ public class Player {
             if (Tastatur.istGedrueckt(' ')) {
                 System.out.println(((int) HitBox.x)+",0,");
                 System.out.println(((int) HitBox.z)+",");
-                Baum Baum;
-                Baum = new Baum((int) HitBox.x, 0, (int) HitBox.z, 1);
+                lampe Baum;
+                Baum = new lampe((int) HitBox.x, 0, (int) HitBox.z, 1,false);
                 //GLVektor Richtung = new GLVektor(0,1,0);
                 //Richtung.skaliereAuf(Geschwindigkeit);
                 //Camera.moveCameraRel(Richtung);

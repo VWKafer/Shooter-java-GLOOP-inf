@@ -36,7 +36,7 @@ public class Camera {
 
         KameraMain=  KameraMain2;
         UIspieler = new UI(KameraMain);
-        Licht = new GLLicht();
+        //Licht = new GLLicht();
         Maus = new GLMaus();
         Himmel = new GLHimmel("Himmel.jpg");
         //Boden = new GLBoden("Boden.jpg");
@@ -110,7 +110,7 @@ public class Camera {
         {
             Mx = Maus.gibX();
             My = Maus.gibY();
-            if (Maus.gibX()>1750||Maus.gibX()<400||Maus.gibY()<200||Maus.gibY()>800)
+            if (Maus.gibX()>1750||Maus.gibX()<400)
             {   moveMouse(960,600);
                 Mx =960;
                 Mx2 =960;
