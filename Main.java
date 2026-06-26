@@ -19,8 +19,8 @@ public class Main {
         Boden1.setzeSkalierung(10,3,10);
         Boden1.setzePosition(0,-590,0);
         Boden1.setzeTextur("mapTextur.png");
-        lampe Baum1;
-        Baum1 = new lampe(-450,0,200,1,true);
+        //lampe Baum1;
+        //Baum1 = new lampe(-450,0,200,1,true);
         
         
         if (multiplayer)
@@ -140,8 +140,11 @@ int[]koordinatenBaume = {
                 hitboxArrayPosition++;
             }
 
+            lampe lampe[] = new lampe[20];
+            int n = 0;
             int[]koordinatenlampenV = {
-            -289,0,126,
+           
+                -289,0,126,
             -87,0,107,
             56,0,-64,
             254,0,-60,
@@ -149,24 +152,21 @@ int[]koordinatenBaume = {
             241,0,326,
             -111,0,403,
 
-             -68,0,6,
-                552,0,42,
-                356,0,268,
-                257,0,268,
-                551,0,441,
-                609,0,595,
-                42,0,455,
+             
             };
             
             //           anzahl lampen *3
-            for (int i = 0;i<42; i= i+3){
+            for (int i = 0;i<21; i= i+3){
                
-                lampe lampe = new lampe(koordinatenlampenV[i], koordinatenlampenV[i+1], koordinatenlampenV[i+2], 1,true);
+                lampe lampe2;
+                lampe2 = new lampe(koordinatenlampenV[i], koordinatenlampenV[i+1], koordinatenlampenV[i+2], 1,true,Player0);
                 //System.out.println(koordinatenBaume[i]);
-                HitBoxen[hitboxArrayPosition] = lampe.gibHitBox();
+                HitBoxen[hitboxArrayPosition] = lampe2.gibHitBox();
                 hitboxArrayPosition++;
+                lampe[n]= lampe2   ;
+                n++;
             }
-            /*int[]koordinatenlampenR = {
+            int[]koordinatenlampenR = {
                 -68,0,6,
                 552,0,42,
                 356,0,268,
@@ -183,10 +183,12 @@ int[]koordinatenBaume = {
             };
             for (int i = 0;i<21; i= i+3){
                  
-                lampe lampe = new lampe(koordinatenlampenR[i], koordinatenlampenR[i+1], koordinatenlampenR[i+2], 1,false);
-                HitBoxen[hitboxArrayPosition] = lampe.gibHitBox();
+                lampe lampe2 = new lampe(koordinatenlampenR[i], koordinatenlampenR[i+1], koordinatenlampenR[i+2], 1,false,Player0);
+                HitBoxen[hitboxArrayPosition] = lampe2.gibHitBox();
                 hitboxArrayPosition++;
-            }*/
+                lampe[n]= lampe2   ;
+                n++;
+            }
         
             Waffe Waffe1 = new Waffe(Enemys,Global,Feinde,FeindeBool);
             Player0.ubergeben(Waffe1);
@@ -204,6 +206,7 @@ int[]koordinatenBaume = {
                 Sys.warte(8);///// 16ms wäre 60 fps ohne rechnungszeit 8ms wäre 120 fps
                 //Sys.warte(2000);
                 Player0.Update(); 
+                for (int i = 0; lampe[i]!= null; i++){lampe[i].Update();}
             }
             Sys.warte(100);
             Sys.beenden();
