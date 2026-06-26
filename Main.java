@@ -127,6 +127,7 @@ int[]koordinatenBaume = {
             646,0,124,
             647,0,57,};
             
+            int hitboxArrayPosition = 9;
             //           anzahl bäume *3
             for (int i = 0;i<54; i= i+3){
                 Baum Baum;
@@ -134,7 +135,9 @@ int[]koordinatenBaume = {
                 //System.out.println(koordinatenBaume[i]);
                 //System.out.println(koordinatenBaume[i+1]);
                 //System.out.println(koordinatenBaume[i+2]);
-                HitBoxen[i+9] = Baum.gibHitBox();
+
+                HitBoxen[hitboxArrayPosition] = Baum.gibHitBox();
+                hitboxArrayPosition++;
             }
 
             int[]koordinatenlampenV = {
@@ -146,18 +149,24 @@ int[]koordinatenBaume = {
             241,0,326,
             -111,0,403,
 
+             -68,0,6,
+                552,0,42,
+                356,0,268,
+                257,0,268,
+                551,0,441,
+                609,0,595,
+                42,0,455,
             };
             
             //           anzahl lampen *3
-            for (int i = 0;i<21; i= i+3){
-                lampe lampe;
-                lampe = new lampe(koordinatenlampenV[i], koordinatenlampenV[i+1], koordinatenlampenV[i+2], 1,true);
+            for (int i = 0;i<42; i= i+3){
+               
+                lampe lampe = new lampe(koordinatenlampenV[i], koordinatenlampenV[i+1], koordinatenlampenV[i+2], 1,true);
                 //System.out.println(koordinatenBaume[i]);
-                //System.out.println(koordinatenBaume[i+1]);
-                //System.out.println(koordinatenBaume[i+2]);
-                HitBoxen[i+63] = lampe.gibHitBox();
+                HitBoxen[hitboxArrayPosition] = lampe.gibHitBox();
+                hitboxArrayPosition++;
             }
-            int[]koordinatenlampenR = {
+            /*int[]koordinatenlampenR = {
                 -68,0,6,
                 552,0,42,
                 356,0,268,
@@ -173,13 +182,11 @@ int[]koordinatenBaume = {
 
             };
             for (int i = 0;i<21; i= i+3){
-                lampe lampe;
-                lampe = new lampe(koordinatenlampenR[i], koordinatenlampenR[i+1], koordinatenlampenR[i+2], 1,false);
-                //System.out.println(koordinatenBaume[i]);
-                //System.out.println(koordinatenBaume[i+1]);
-                //System.out.println(koordinatenBaume[i+2]);
-                HitBoxen[i+63] = lampe.gibHitBox();
-            }
+                 
+                lampe lampe = new lampe(koordinatenlampenR[i], koordinatenlampenR[i+1], koordinatenlampenR[i+2], 1,false);
+                HitBoxen[hitboxArrayPosition] = lampe.gibHitBox();
+                hitboxArrayPosition++;
+            }*/
         
             Waffe Waffe1 = new Waffe(Enemys,Global,Feinde,FeindeBool);
             Player0.ubergeben(Waffe1);
