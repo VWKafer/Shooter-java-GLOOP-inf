@@ -16,6 +16,7 @@ public class Player {
     int Bodenhöhe= 0;
    Global_Variables Global;
     int Feinde;
+    GLKugel Sichtweite;
     public Player( int num)
     {
         
@@ -37,6 +38,7 @@ public class Player {
         Camera = new Camera(Kamera_Sicht,KameraMain,num);
         Tastatur = new GLTastatur();
         PlayerBody = new GLQuader(gibX(), 0, gibZ(), 5, 25, 5);
+        //Sichtweite = new GLKugel(PlayerBody.gibPosition(), -400);
         if (Playernumber ==1) {
             PlayerBody.setzeFarbe(0,1,0);
             PlayerBody.setzeSelbstleuchten(0, 1,0);
@@ -66,7 +68,7 @@ public class Player {
         Waffe.Update();
         Camera.Update();
         HitBox.setzePosition(PlayerBody.gibPosition());
-        
+        //Sichtweite.setzePosition(PlayerBody.gibPosition());
         if(Tastatur.esc()|| (Global.getFeinde() ==0 && Feinde!=0)){
             end();
         }
@@ -79,7 +81,7 @@ public class Player {
                 System.out.println(((int) HitBox.x)+",0,");
                 System.out.println(((int) HitBox.z)+",");
                 lampe Baum;
-                Baum = new lampe((int) HitBox.x, 0, (int) HitBox.z, 1,false,this);
+                Baum = new lampe((int) HitBox.x, 0, (int) HitBox.z, 1,false,this,Global);
                 //GLVektor Richtung = new GLVektor(0,1,0);
                 //Richtung.skaliereAuf(Geschwindigkeit);
                 //Camera.moveCameraRel(Richtung);

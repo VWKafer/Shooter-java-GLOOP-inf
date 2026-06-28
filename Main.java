@@ -61,7 +61,7 @@ public class Main {
         {//// Single player
             Player0= new Player(0);
             
-            Feinde = 0;
+            Feinde = 4;
             Global.setVariable(Feinde);
             Player0.ubergeben(Global,Feinde);
             boolean FeindeBool[] = new boolean[Feinde];
@@ -159,7 +159,7 @@ int[]koordinatenBaume = {
             for (int i = 0;i<21; i= i+3){
                
                 lampe lampe2;
-                lampe2 = new lampe(koordinatenlampenV[i], koordinatenlampenV[i+1], koordinatenlampenV[i+2], 1,true,Player0);
+                lampe2 = new lampe(koordinatenlampenV[i], koordinatenlampenV[i+1], koordinatenlampenV[i+2], 1,true,Player0, Global);
                 //System.out.println(koordinatenBaume[i]);
                 HitBoxen[hitboxArrayPosition] = lampe2.gibHitBox();
                 hitboxArrayPosition++;
@@ -183,13 +183,17 @@ int[]koordinatenBaume = {
             };
             for (int i = 0;i<21; i= i+3){
                  
-                lampe lampe2 = new lampe(koordinatenlampenR[i], koordinatenlampenR[i+1], koordinatenlampenR[i+2], 1,false,Player0);
+                lampe lampe2 = new lampe(koordinatenlampenR[i], koordinatenlampenR[i+1], koordinatenlampenR[i+2], 1,false,Player0,Global);
                 HitBoxen[hitboxArrayPosition] = lampe2.gibHitBox();
                 hitboxArrayPosition++;
                 lampe[n]= lampe2   ;
                 n++;
             }
-        
+           
+            GLNebel nwbwl = new GLNebel();
+            nwbwl.setzeFarbe(0,0,0);
+           
+            
             Waffe Waffe1 = new Waffe(Enemys,Global,Feinde,FeindeBool);
             Player0.ubergeben(Waffe1);
             Player0.ubergeben(HitBoxen);

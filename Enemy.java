@@ -86,16 +86,18 @@ public class Enemy {
         Body.setzeFarbe(1,0,0);
 
         Head = new GLQuader(  Body.gibX()+2 , 10, Body.gibZ(),2, 2, 4);
-        SpielerSichtAnzeige = new GLKugel(Body.gibX(),Body.gibY()+20,Body.gibZ(),5);
-        SpielerSichtAnzeigeRamen = new GLKugel(Body.gibX(),Body.gibY()+20,Body.gibZ(),-5.5);
-        SpielerSichtAnzeigeRamen.setzeSelbstleuchten(1, 1, 1);
-       
+        SpielerSichtAnzeige = new GLKugel(Body.gibX(),Body.gibY()+20,Body.gibZ(),2);
+        SpielerSichtAnzeigeRamen = new GLKugel(Body.gibX(),Body.gibY()+20,Body.gibZ(),-1.1);
+        SpielerSichtAnzeigeRamen.setzeSelbstleuchten(0.5, 0.5, 0.5);
+        
+
         sicht = new GLZylinder(Body.gibX()+sichtWeiteVorne-sichtWeiteoffset,0,Body.gibZ(), sichtWeiteVorne,1);
         sicht.setzeDrehung(90,0,0);
         sicht.setzeSelbstleuchten(1,1,0);
+        sicht.setzeSichtbarkeit(false);
 
         drehe(0, 180, 0, Body.gibPosition());
-        HitBox = new Hitbox(Body.gibPosition(),7, 28, 7, true);
+        HitBox = new Hitbox(Body.gibPosition(),7, 28, 7, false);
 
         SpielerRichtung = new GLVektor(Body.gibX(),Body.gibY(),Body.gibZ(),    Player.gibX(),Player.gibY(),Player.gibZ());
         for(int i = 0; i<rays ;i++)
@@ -109,6 +111,7 @@ public class Enemy {
                 pos.addiere(SpielerRichtung);
             }
             Rayteile[i] = new GLKugel( pos , 1);
+            Rayteile[i].setzeSichtbarkeit(false);
         }}
 
     public void Update()
@@ -198,6 +201,8 @@ public class Enemy {
             Head.loesche();
             sicht.loesche();
             FeindeBool[feindnummer]= false;
+            SpielerSichtAnzeige.loesche();
+            SpielerSichtAnzeigeRamen.loesche();
             
 
            
@@ -382,7 +387,7 @@ public class Enemy {
             SpielerSichtAnzeige.setzeSelbstleuchten(0.5,0,0);}
         if (SpielerSicht<0.6){ SpielerSichtAnzeige.setzeFarbe(0,0.5,0);
             SpielerSichtAnzeige.setzeSelbstleuchten(0,0.5,0);}
-        SpielerSichtAnzeige.setzeSkalierung(SpielerSicht );
+        SpielerSichtAnzeige.setzeSkalierung(SpielerSicht *0.5);
         LetzteSpielersicht = SpielerSicht;
 
     }
