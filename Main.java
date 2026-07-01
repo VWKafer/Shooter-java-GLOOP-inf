@@ -6,6 +6,18 @@ public class Main {
     {System.out.println(System.getProperty("java.version"));
    
         Sys.warte(100);
+
+        // anzahl der feide die schießen 
+
+        int Feinde = 0;
+        //anzahl der zombies
+        int Zombies = 10;
+
+
+
+
+        boolean multiplayer = false;
+
         Global_Variables  Global;
         Global = new Global_Variables();
 
@@ -13,8 +25,8 @@ public class Main {
         Player Player2;
         Player Player0;
        
-        int Feinde;
-        boolean multiplayer = false;
+       
+       
         GLTerrain  Boden1;
         Boden1 = new GLTerrain(0, 0,0, "map.png");
         Boden1.setzeSkalierung(10,3,10);
@@ -30,8 +42,7 @@ public class Main {
             Player1 = new Player(1);
             Player2 = new Player(2);
              Global.setVariable(5);
-             Feinde = 5;
-             int Zombies = 10;
+            
             boolean FeindeBool[] = new boolean[Feinde];
             Enemy Enemys[] = new Enemy[Feinde];
             for (int i=0 ; i<Feinde; i++){
@@ -76,8 +87,7 @@ public class Main {
         {//// Single player
             Player0= new Player(0);
             
-            Feinde = 0;
-            int Zombies = 5;
+            
             Global.setVariable(Feinde);
             Global.setVariableZ(Zombies);
             Player0.ubergeben(Global,Feinde,Zombies);
