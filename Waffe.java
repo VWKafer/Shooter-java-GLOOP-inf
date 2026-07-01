@@ -74,8 +74,14 @@ public class Waffe {
 
     Global_Variables Global;
     int Feinde;
-    public  Waffe(Enemy Enemys2[],Global_Variables Global2,int Feinde2,boolean FeindeBool2[])
+    int Zombies;
+    Zombie Zombie[];
+    boolean ZombieBool[];
+    public  Waffe(Enemy Enemys2[],int Zombies2,Global_Variables Global2,int Feinde2,Zombie Zombie2[],boolean FeindeBool2[],boolean ZombieBool2[])
     {
+        ZombieBool = ZombieBool2;
+        Zombie = Zombie2;
+        Zombies = Zombies2;
         FeindeBool = FeindeBool2;
         Global =Global2;
         Feinde = Feinde2;
@@ -300,6 +306,7 @@ public class Waffe {
                 ////////// Enemy update
                 Enemys[i].Update();
                 
+                
                 ///////////
                 for (int n=0; n<Projektil;n++){
                     if ( ProjektileObj[n] != null) // wenn true
@@ -324,18 +331,39 @@ public class Waffe {
                         }
                     }
                 }
-            }/*else{
-                if (Feinde> i+1&& Enemys[i+1]!= null){
-                if (FeindeBool[i+1] == true){
-                    Enemys[i]= Enemys[i+1];
-                    FeindeBool[i]= true;
-                    FeindeBool[i+1] = false;
-                    
-                    
-                }
+            }
+        }
+            for (int i=0;i< Zombies; i++){
+            if (ZombieBool[i]== true){
+                ////////// Enemy update
+                Zombie[i].Update();
                 
+                
+                ///////////
+                for (int n=0; n<Projektil;n++){
+                    if ( ProjektileObj[n] != null) // wenn true
+                    {
+                        int dx =  (int) Math.abs(ProjektileObj[n].gibX()- Zombie[i].gibX());
+                        int dy =  (int) Math.abs(ProjektileObj[n].gibZ()- Zombie[i].gibZ());
+                        if (dy < 15 && dx < 15){
+                           
+                            Zombie[i].schaden();
+                            //System.out.println("Schaden an" + i + "mit Abstand: " + dx + " und " + dy);
+
+                            if (Zombie[i].Tot()== 1) 
+                             {ZombieBool[i]= false;
+                                Global.changeVariableZ(-1);
+                             }
+                            
+                            ProjektileObj[n].loesche();
+                            n = Projektil+10000;
+                            i = Feinde +10000;
+                            
+                            
+                        }
+                    }
                 }
-            }*/
+            }
         }
         
     } 

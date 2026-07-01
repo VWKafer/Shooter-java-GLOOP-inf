@@ -1,5 +1,6 @@
 public class Global_Variables {
     static int Feinde = 0;
+    static int Zombies = 0;
     static int Lampenv= 0;
     static int Ldist = 100;
     
@@ -24,5 +25,9 @@ public class Global_Variables {
     public void setVariableLD(int Ldist2){Ldist = Ldist2;}
     public int getLdist(){return Ldist;}
     
-    
+    public void changeVariableZ(int change){ Zombies = Zombies+ change;
+        System.out.println(Zombies);
+    }
+    public void setVariableZ(int Zombies2){Zombies = Zombies2;}
+    public int getZombies(){return Zombies;}
 }

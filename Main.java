@@ -5,6 +5,7 @@ public class Main {
     public static void main(String args[])
     {System.out.println(System.getProperty("java.version"));
    
+        Sys.warte(100);
         Global_Variables  Global;
         Global = new Global_Variables();
 
@@ -18,17 +19,19 @@ public class Main {
         Boden1 = new GLTerrain(0, 0,0, "map.png");
         Boden1.setzeSkalierung(10,3,10);
         Boden1.setzePosition(0,-590,0);
-        Boden1.setzeTextur("mapTextur.png");
+        Boden1.setzeTextur("mapTexturdesign.png");
         //lampe Baum1;
-        //Baum1 = new lampe(-450,0,200,1,true);
+        //Bam1 = new lampe(-450,0,200,1,true);
         
         
         if (multiplayer)
         {  ///////// 2Spielerd
+            
             Player1 = new Player(1);
             Player2 = new Player(2);
              Global.setVariable(5);
              Feinde = 5;
+             int Zombies = 10;
             boolean FeindeBool[] = new boolean[Feinde];
             Enemy Enemys[] = new Enemy[Feinde];
             for (int i=0 ; i<Feinde; i++){
@@ -39,12 +42,24 @@ public class Main {
                
                 Enemys[i].ubergeben(FeindeBool);
             }
+             boolean ZombieBool[] = new boolean[Feinde];
+            Zombie Zombie[] = new Zombie[Zombies];
+            for (int i=0 ; i<Zombies; i++){
+                ZombieBool[i] = true;
+                Zombie[i] = new Zombie(i,Global,Zombies,Player1, false);
+            }
+            for (int i=0 ; i<Zombies; i++){
+               
+                Zombie[i].ubergeben(ZombieBool);
+                System.out.println(i);
+   
+            }
 
         
-            Waffe Waffe1 = new Waffe(Enemys,Global,Feinde,FeindeBool);
+            Waffe Waffe1 = new Waffe(Enemys,Zombies,Global,Feinde,Zombie,FeindeBool,ZombieBool);
             Player1.ubergeben(Waffe1);
 
-            Waffe Waffe2 = new Waffe(Enemys,Global,Feinde,FeindeBool);
+            Waffe Waffe2 = new Waffe(Enemys,Zombies,Global,Feinde,Zombie,FeindeBool,ZombieBool);
             Player2.ubergeben(Waffe2);
 
             boolean running = true;
@@ -61,9 +76,11 @@ public class Main {
         {//// Single player
             Player0= new Player(0);
             
-            Feinde = 4;
+            Feinde = 0;
+            int Zombies = 5;
             Global.setVariable(Feinde);
-            Player0.ubergeben(Global,Feinde);
+            Global.setVariableZ(Zombies);
+            Player0.ubergeben(Global,Feinde,Zombies);
             boolean FeindeBool[] = new boolean[Feinde];
             Enemy Enemys[] = new Enemy[Feinde];
             for (int i=0 ; i<Feinde; i++){
@@ -73,6 +90,18 @@ public class Main {
             for (int i=0 ; i<Feinde; i++){
                
                 Enemys[i].ubergeben(FeindeBool);
+                System.out.println(i);
+   
+            }
+            boolean ZombieBool[] = new boolean[Zombies];
+            Zombie Zombie[] = new Zombie[Zombies];
+            for (int i=0 ; i<Zombies; i++){
+                ZombieBool[i] = true;
+                Zombie[i] = new Zombie(i,Global,Zombies,Player0, false);
+            }
+            for (int i=0 ; i<Zombies; i++){
+               
+                Zombie[i].ubergeben(ZombieBool);
                 System.out.println(i);
    
             }
@@ -194,7 +223,7 @@ int[]koordinatenBaume = {
             nwbwl.setzeFarbe(0,0,0);
            
             
-            Waffe Waffe1 = new Waffe(Enemys,Global,Feinde,FeindeBool);
+            Waffe Waffe1 = new Waffe(Enemys,Zombies,Global,Feinde,Zombie,FeindeBool,ZombieBool);
             Player0.ubergeben(Waffe1);
             Player0.ubergeben(HitBoxen);
 
@@ -203,6 +232,10 @@ int[]koordinatenBaume = {
             for (int i=0 ; i<Feinde; i++){
                
                 Enemys[i].ubergeben(HitBoxen);
+            }
+             for (int i=0 ; i<Zombies; i++){
+               
+                Zombie[i].ubergeben(HitBoxen);
             }
 
            

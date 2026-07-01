@@ -8,7 +8,7 @@ public class Camera {
     GLKamera Kamera_Sicht;
     GLVektor positionBlick;
     GLVektor positionKamera;
-    GLHimmel Himmel;
+    
     //GLBoden Boden;
     GLLicht Licht;
     GLMaus Maus;
@@ -38,7 +38,7 @@ public class Camera {
         UIspieler = new UI(KameraMain);
         //Licht = new GLLicht();
         Maus = new GLMaus();
-        Himmel = new GLHimmel("Himmel.jpg");
+        
         //Boden = new GLBoden("Boden.jpg");
         d = Toolkit.getDefaultToolkit().getScreenSize();
         System.out.println(d.height);

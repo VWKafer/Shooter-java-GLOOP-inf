@@ -16,6 +16,7 @@ public class Player {
     int Bodenhöhe= 0;
    Global_Variables Global;
     int Feinde;
+    int Zombies;
     GLKugel Sichtweite;
     public Player( int num)
     {
@@ -59,9 +60,10 @@ public class Player {
          Waffe.ubergeben(this,Camera, HitBoxen);
          Camera.ubergeben(HitBoxen);
     }
-    public void ubergeben( Global_Variables Global2,int Feinde2){
+    public void ubergeben( Global_Variables Global2,int Feinde2,int Zombies2){
         Global = Global2;
         Feinde = Feinde2;
+        Zombies = Zombies2;
     }
 
     public void Update (){
@@ -69,7 +71,7 @@ public class Player {
         Camera.Update();
         HitBox.setzePosition(PlayerBody.gibPosition());
         //Sichtweite.setzePosition(PlayerBody.gibPosition());
-        if(Tastatur.esc()|| (Global.getFeinde() ==0 && Feinde!=0)){
+        if(Tastatur.esc()|| (Global.getFeinde() ==0 && Feinde!=0)||(Global.getZombies() ==0 && Zombies!=0)){
             end();
         }
 
@@ -77,7 +79,7 @@ public class Player {
 
         if (Playernumber == 1||Playernumber == 0) {
             
-            if (Tastatur.istGedrueckt(' ')) {
+           /*  if (Tastatur.istGedrueckt(' ')) {
                 System.out.println(((int) HitBox.x)+",0,");
                 System.out.println(((int) HitBox.z)+",");
                 lampe Baum;
@@ -85,7 +87,7 @@ public class Player {
                 //GLVektor Richtung = new GLVektor(0,1,0);
                 //Richtung.skaliereAuf(Geschwindigkeit);
                 //Camera.moveCameraRel(Richtung);
-            }
+            }*/
             if (Tastatur.istGedrueckt('w')) {
             
                 GLVektor Richtung = KameraMain.gibBlickrichtung();

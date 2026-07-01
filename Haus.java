@@ -21,8 +21,8 @@ public class Haus {
     Dach.setzeDrehung(0,0,45);
     Haus.setzeDrehung(0, rotationy,0);
     Dach.drehe(0, rotationy, 0,Haus.gibPosition());
-    if (rotationy == 0 ){HitBox = new Hitbox(Haus.gibPosition(), plx, ply, plz, true);}
-    if (rotationy == 90){HitBox = new Hitbox(Haus.gibPosition(), plz, ply, plx, true);}
+    if (rotationy == 0 ){HitBox = new Hitbox(Haus.gibPosition(), plx, ply, plz, false);}
+    if (rotationy == 90){HitBox = new Hitbox(Haus.gibPosition(), plz, ply, plx, false);}
    }
    public Hitbox gibHitBox()
     {return  HitBox;}

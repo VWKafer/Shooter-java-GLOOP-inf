@@ -29,10 +29,10 @@ public class Enemy {
     double LetzteSpielersicht= 0.1;
     boolean FeindeBool[];
 
-    int maxx = 500;
+    int maxx = 800;
     int minx = -500;
-    int maxz = 500;
-    int minz = -500;
+    int maxz = 900;
+    int minz = -200;
 
     int feindnummer;
     //double winkel=0;
