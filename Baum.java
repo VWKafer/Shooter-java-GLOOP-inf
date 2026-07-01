@@ -1,6 +1,7 @@
  import GLOOP.*;
  public class Baum {
- int x;
+   // ein Baum der eine hitbox im Stamm hat und deko ist
+    int x;
     int y;
     int z;
     double size;
@@ -23,6 +24,7 @@
     HitBox = new Hitbox(Stamm.gibPosition(), breite, hohe, breite, true);
     
    }
+  
    public Hitbox gibHitBox()
     {return  HitBox;}
 
