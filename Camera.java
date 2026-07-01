@@ -2,26 +2,26 @@ import GLOOP.*;
 import java.awt.*;
 public class Camera {
     DllBridge DllTwoMouse;
-    boolean crosshairbool = true;
+    boolean crosshairbool = true;    // soll es ein crosshair geben?
     GLWuerfel crosshair;
-    GLKamera KameraMain;
+    GLKamera KameraMain;// ein kamera objekt das nicht aktiv ist aber die position und ausrichtung des spielers definiert
     GLKamera Kamera_Sicht;
-    GLVektor positionBlick;
-    GLVektor positionKamera;
+    GLVektor positionBlick; /// position des blickpunktes
+    GLVektor positionKamera;  // position der kamera
     GLHimmel Himmel;
     //GLBoden Boden;
     GLLicht Licht;
     GLMaus Maus;
-    double empfindlichkeit = 0.1;
+    double empfindlichkeit = 0.1;        // geschwindigkeit der kamera bewegung
     int Mx;
     int Mx2;
     int My;
     int My2;
-    double kameabewegung;
-    double kameabewegungy;
-    int Playernumber;
+    double kameabewegung;        // bewegung in x richtung
+    
+    int Playernumber;   // ob der spieler 0 also single player , oder 1 oder 2 ist
 
-    Dimension d; //
+    Dimension d; // größe des bildschirms
     Waffe Waffe1;
     UI UIspieler;
     Hitbox[] HitBoxen;
@@ -36,18 +36,19 @@ public class Camera {
 
         KameraMain=  KameraMain2;
         UIspieler = new UI(KameraMain);
-        //Licht = new GLLicht();
+        //Licht = new GLLicht();            //Sonne
         Maus = new GLMaus();
         Himmel = new GLHimmel("Himmel.jpg");
-        //Boden = new GLBoden("Boden.jpg");
-        d = Toolkit.getDefaultToolkit().getScreenSize();
+       
+        d = Toolkit.getDefaultToolkit().getScreenSize(); // funktion um die Bildschirmgröße zu erfahren
         System.out.println(d.height);
         System.out.println(d.width);
 
-        steinFallOrt = new GLQuader(3, 0, 150, 4, 0.5, 4);
+        steinFallOrt = new GLQuader(3, 0, 150, 4, 0.5, 4);    // spieler anzeige wo der werfbare stein aufkommt
         steinFallOrt.setzeSelbstleuchten(1, 0,0);
         steinFallOrt.setzeFarbe(1,0,0);
-        if (crosshairbool)
+        
+        if (crosshairbool)                            // erstellen eines crossghairs
         {
             crosshair = new GLWuerfel(0, 10, 498, 0.01);
             crosshair.setzeSelbstleuchten(1, 0,0);
@@ -56,7 +57,7 @@ public class Camera {
         
 
 
-        if (Playernumber == 0) 
+        if (Playernumber == 0)                 //singleplayer kamera bewegung 
         {
         
             Mx = Maus.gibX();
@@ -64,7 +65,7 @@ public class Camera {
             My = Maus.gibY();
             My2= My;
         
-        }else{
+        }else{                                // multiplayer kamerabewegung
             DllTwoMouse = new DllBridge();
             if (DllTwoMouse.init() != true) {System.out.println("init fehlgeschlagen");}
             DllTwoMouse.Update();
@@ -86,14 +87,15 @@ public class Camera {
         HitBoxen = HitBoxen2;
     }
 
-    public void Update (){
+    public void Update (){ // wird jeden frame aufgerufen
+        
         if(Playernumber != 0)
         { 
             DllTwoMouse.Update(); 
            // System.out.println(DllTwoMouse.getX(2));
         }
        
-        schwenken();
+        schwenken();            // kamerabewegung 
         UIspieler.changeHealth(0);
         UIspieler.Update();
        if (Waffe1.WaffeNummer()==3){
