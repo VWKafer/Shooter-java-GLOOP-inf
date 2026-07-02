@@ -9,10 +9,9 @@ public class Main {
 
         // anzahl der feide die schießen 
 
-        int Feinde = 0;
+        int Feinde = 4;
         //anzahl der zombies
-        int Zombies = 10;
-
+        int Zombies = 0;
 
 
 
